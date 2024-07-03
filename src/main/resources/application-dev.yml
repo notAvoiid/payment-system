@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: payment-system
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment-system?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo
+    username: postgres
+    password: admin123
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
