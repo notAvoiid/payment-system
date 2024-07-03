@@ -33,6 +33,12 @@ public class User implements Serializable, UserDetails {
     private String verificationCode;
     private boolean enabled;
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
