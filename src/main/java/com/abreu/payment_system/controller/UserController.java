@@ -3,6 +3,7 @@ package com.abreu.payment_system.controller;
 import com.abreu.payment_system.model.User;
 import com.abreu.payment_system.model.dto.UserRequest;
 import com.abreu.payment_system.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid UserRequest request) {
         User user = request.toUser();
         return ResponseEntity.ok(userService.createUser(user));
     }
