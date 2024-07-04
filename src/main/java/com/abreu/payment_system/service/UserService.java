@@ -1,7 +1,7 @@
 package com.abreu.payment_system.service;
 
 import com.abreu.payment_system.model.User;
-import com.abreu.payment_system.model.dto.UserResponseDTO;
+import com.abreu.payment_system.model.dto.user.UserResponseDTO;
 import com.abreu.payment_system.repository.UserRepository;
 import com.abreu.payment_system.utils.RandomString;
 import jakarta.mail.MessagingException;

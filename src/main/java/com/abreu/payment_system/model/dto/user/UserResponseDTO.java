@@ -1,4 +1,4 @@
-package com.abreu.payment_system.model.dto;
+package com.abreu.payment_system.model.dto.user;
 
 import com.abreu.payment_system.model.User;
 
