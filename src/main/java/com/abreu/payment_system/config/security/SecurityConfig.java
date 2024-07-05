@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "api/v1/user/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "api/v1/user/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "api/v1/user/verify").permitAll()
-                        .requestMatchers(HttpMethod.GET, "api/v1/pix", "api/v1/pix/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "api/v1/pix").permitAll()
                         .requestMatchers(HttpMethod.GET, "api/v1/user/test").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

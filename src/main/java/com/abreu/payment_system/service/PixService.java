@@ -14,6 +14,7 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -27,14 +28,17 @@ public class PixService {
     private String clientSecret;
 
 
-    public JSONObject pixCreateEVP(){
+    public JSONObject pixDetailCharge(String txid){
 
         JSONObject options = configuringJsonObject();
 
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("txid", txid);
+
         try {
             EfiPay efi = new EfiPay(options);
-            JSONObject response = efi.call("pixCreateEvp", new HashMap<String,String>(), new JSONObject());
-            System.out.println(response.toString());
+            JSONObject response = efi.call("pixDetailCharge", params, new JSONObject());
+
             return response;
         }catch (EfiPayException e){
             System.out.println(e.getError());
@@ -46,7 +50,47 @@ public class PixService {
         return null;
     }
 
+    public List<JSONObject> pixListCharges(){
 
+        JSONObject options = configuringJsonObject();
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("inicio", "2021-04-01T16:01:35Z");
+        params.put("fim", "2021-04-21T16:01:35Z");
+
+        try {
+            EfiPay efi = new EfiPay(options);
+            JSONObject response = efi.call("pixListCharges", params, new JSONObject());
+            System.out.println(response);
+        }catch (EfiPayException e){
+            System.out.println(e.getError());
+            System.out.println(e.getErrorDescription());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public JSONObject pixCreateEVP(){
+
+        JSONObject options = configuringJsonObject();
+
+        try {
+            EfiPay efi = new EfiPay(options);
+            JSONObject response = efi.call("pixCreateEvp", new HashMap<String,String>(), new JSONObject());
+            System.out.println(response.toString());
+
+            return response;
+        }catch (EfiPayException e){
+            System.out.println(e.getError());
+            System.out.println(e.getErrorDescription());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public JSONObject pixCreateCharge(PixChargeRequestDTO pixChargeRequest){
 
@@ -70,8 +114,6 @@ public class PixService {
             int idFromJson= response.getJSONObject("loc").getInt("id");
             pixGenerateQRCode(String.valueOf(idFromJson));
 
-
-
             return response;
         }catch (EfiPayException e){
             System.out.println(e.getError());
@@ -85,7 +127,6 @@ public class PixService {
 
 
     private void pixGenerateQRCode(String id){
-
 
         JSONObject options = configuringJsonObject();
 
@@ -102,7 +143,6 @@ public class PixService {
             ImageIO.write(ImageIO.read(new ByteArrayInputStream(javax.xml.bind.DatatypeConverter.parseBase64Binary(((String) response.get("imagemQrcode")).split(",")[1]))), "png", outputfile);
             Desktop desktop = Desktop.getDesktop();
             desktop.open(outputfile);
-
         }catch (EfiPayException e){
             System.out.println(e.getError());
             System.out.println(e.getErrorDescription());

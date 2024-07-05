@@ -11,7 +11,6 @@ import org.json.JSONTokener;
 public class Credentials {
 
     private String clientId;
-
     private String clientSecret;
     private String certificate;
     private boolean sandbox;
@@ -27,8 +26,6 @@ public class Credentials {
         } catch (IOException e) {
             System.out.println("Impossible to close file credentials.json");
         }
-
-
         this.certificate = credentials.getString("certificate");
         this.sandbox = credentials.getBoolean("sandbox");
         this.debug = credentials.getBoolean("debug");
